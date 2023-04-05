@@ -25,17 +25,23 @@ public class GridLayer : RasterLayer
     {
         var initLayer = base.InitLayer(layerInitData, registerAgentHandle, unregisterAgentHandle);
 
-        SimpleAgentEnvironment = new SpatialHashEnvironment<SimpleAgent>(Width, Height);
-        ComplexAgentEnvironment = new SpatialHashEnvironment<ComplexAgent>(Width, Height);
 
+         //SimpleAgentEnvironment = new SpatialHashEnvironment<SimpleAgent>(Width, Height);
+        ComplexAgentEnvironment = new SpatialHashEnvironment<ComplexAgent>(Width, Height);
+        LangtonAntAgentEnvironment = new SpatialHashEnvironment<LangtonAntAgent>(Width, Height);
+        
         var agentManager = layerInitData.Container.Resolve<IAgentManager>();
 
-        SimpleAgents = agentManager.Spawn<SimpleAgent, GridLayer>().ToList();
-        ComplexAgents = agentManager.Spawn<ComplexAgent, GridLayer>().ToList();
-        HelperAgents = agentManager.Spawn<HelperAgent, GridLayer>().ToList();
 
+       //SimpleAgents = agentManager.Spawn<SimpleAgent, GridLayer>().ToList();
+        //ComplexAgents = agentManager.Spawn<ComplexAgent, GridLayer>().ToList();
+        HelperAgents = agentManager.Spawn<HelperAgent, GridLayer>().ToList();
+        LangtonAntAgents = agentManager.Spawn<LangtonAntAgent, GridLayer>().ToList();
+        
         return initLayer;
     }
+
+
 
     #endregion
 
@@ -77,6 +83,10 @@ public class GridLayer : RasterLayer
     ///     A collection that holds the HelperAgent instance
     /// </summary>
     public List<HelperAgent> HelperAgents { get; private set; }
+    
+    public List<LangtonAntAgent> LangtonAntAgents { get; set; }
+
+    public SpatialHashEnvironment<LangtonAntAgent> LangtonAntAgentEnvironment { get; set; }
 
     #endregion
 }
